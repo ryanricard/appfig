@@ -1,0 +1,5 @@
+{
+  "extends": "./config/base",
+  "name": "other",
+  "other": true
+}

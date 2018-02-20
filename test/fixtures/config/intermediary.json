@@ -1,0 +1,5 @@
+{
+  "extends": "base",
+  "name": "intermediary",
+  "intermediary": true
+}

@@ -1,0 +1,9 @@
+{
+  "extends": "intermediary",
+  "name": "development",
+  "development": true,
+  "foo": {
+    "bar": "baa"
+  },
+  "recurp": "${foo.bar}-baz"
+}

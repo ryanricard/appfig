@@ -1,19 +1,23 @@
-const fs = require("fs");
-const path = require("path");
-const assert = require("assert");
-const nconf = require("nconf");
-const recurpolate = require("recurpolate");
+const fs = require('fs');
+const path = require('path');
+const assert = require('assert');
+const { Provider } = require('nconf');
+const recurpolate = require('recurpolate');
+const { defaultsDeep } = require('lodash');
 
-const getJsonExtendsOrder = (rootDir, jsonFilePath, parentName, childPath) => {
+const getJsonExtendsOrder = (configDirPath, jsonFilePath, prevJsonFilePath, prevFileJson = {}) => {
   const result = [jsonFilePath];
   let fileJson;
 
   try {
-    fileJson = fs.readFileSync(jsonFilePath, "utf8");
+    fileJson = fs.readFileSync(jsonFilePath, 'utf8');
   } catch (err) {
-    throw new Error(
-      `Parent config "${parentName}" not found for child ${childPath}`
-    );
+    if (prevFileJson.extends) {
+      throw new Error(
+        `Parent config "${prevFileJson.extends}" not found for child ${prevJsonFilePath}`
+      );
+    }
+    throw new Error(`Config file ${jsonFilePath} not found`);
   }
 
   try {
@@ -23,8 +27,10 @@ const getJsonExtendsOrder = (rootDir, jsonFilePath, parentName, childPath) => {
   }
 
   if (fileJson.extends) {
-    const nextJsonFilePath = path.join(rootDir, `${fileJson.extends}.json`);
-    return result.concat(getJsonExtendsOrder(rootDir, nextJsonFilePath, fileJson.extends, jsonFilePath));
+    const nextJsonFilePath = path.join(configDirPath, `${fileJson.extends}.json`);
+    return result.concat(
+      getJsonExtendsOrder(configDirPath, nextJsonFilePath, jsonFilePath, fileJson)
+    );
   }
 
   return result;
@@ -38,22 +44,38 @@ function recurp(nconf) {
 }
 
 function prepareOptions(options) {
-  if (options.configDirPath) assert(path.isAbsolute(options.configDirPath, 'Optional configuration `options.configDirPath` must be an absolute path when provided.'))
-  return options;
+  if (options.configDirPath) {
+    assert(
+      path.isAbsolute(options.configDirPath),
+      'Optional configuration `options.configDirPath` must be an absolute path when provided.'
+    );
+  }
+
+  // deep merge default object
+  return defaultsDeep(
+    {
+      nconf: {
+        argv: {},
+        env: {}
+      }
+    },
+    options
+  );
 }
 
-function discernConfigDirPath(configFilePath, configDirPath = "") {
+function discernConfigDirPath(configFilePath, configDirPath = '') {
   // return configDirPath when `options.configDirPath` is configured
   if (configDirPath) return configDirPath;
   // else assume relative to configFilePath
-  const pathSegments = configFilePath.split("/");
+  const pathSegments = configFilePath.split('/');
   pathSegments.pop();
-  return pathSegments.join("/");
+  return pathSegments.join('/');
 }
 
-module.exports = function appfig(configFilePath, afterConfigLoaded = noop, options = {}) {
+module.exports = function appfig(configFilePath, options = {}, afterConfigLoaded) {
   // prepare options
-  const _options, { configDirPath, nconf: nconfOptions } = prepareOptions(options);
+  const _options = prepareOptions(options);
+  const { nconf: nconfOptions } = _options;
   const { argv: argvOptions, env: envOptions } = nconfOptions;
 
   // assign path to configuration directory
@@ -63,7 +85,7 @@ module.exports = function appfig(configFilePath, afterConfigLoaded = noop, optio
   const jsonExtendsOrder = getJsonExtendsOrder(configDirPath, configFilePath);
 
   // instantiate new isolated instance of nconf
-  const nconf = new nconf.Provider();
+  const nconf = new Provider();
 
   // load configuration with careful attention to precedence
   nconf
