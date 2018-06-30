@@ -15,7 +15,7 @@ config/default.json
   "port": 3000,
   "logLevel": "debug",
   "services": {
-    "users": "http://{host}/users"
+    "users": "http://${host}/users"
   }
 }
 ```
@@ -44,7 +44,7 @@ process.env.APP_ENV = process.env.APP_ENV || 'development';
 
 const { APP_ENV } =  process.env;
 
-const config = require('appfig')(__dirname + '/config/${APP_ENV}.json')
+const config = require('appfig')(__dirname + `/config/${APP_ENV}.json`);
 
 console.log(config.get('port'));
 console.log(config.get('logLevel'));
