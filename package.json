@@ -6,11 +6,13 @@
   "scripts": {
     "test": "mocha ./test/**/*.test.js",
     "test:watch": "npm run test -- --watch",
+    "test:coverage": "nyc yarn test",
+    "test:coverage:report": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint ."
   },
   "author": "Ryan Ricard",
   "license": "MIT",
-  "keywords":[
+  "keywords": [
     "nconf",
     "recurpolate",
     "configuration",
@@ -24,9 +26,11 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "coveralls": "^3.0.2",
     "eslint": "^4.14.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "nyc": "^12.0.2"
   }
 }
