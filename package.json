@@ -1,7 +1,7 @@
 {
   "name": "appfig",
   "version": "0.0.0",
-  "description": "Application configuration made easy.",
+  "description": "An extremely useful configuration loader.",
   "main": "index.js",
   "scripts": {
     "test": "mocha ./test/**/*.test.js",
