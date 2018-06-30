@@ -2,6 +2,8 @@
 
 Combines [nconf](https://github.com/indexzero/nconf), [recurpolate](https://github.com/AndersDJohnson/recurpolate), and declarative JSON `"extends"` syntax to create an extremely useful configuration loader. 
 
+[![Build Status](https://travis-ci.org/ryanricard/appfig.svg?branch=master)](https://travis-ci.org/ryanricard/appfig)
+
 ## Usage
 
 All the value packed into `appfig` is demonstrated in the example below. Enjoy.
