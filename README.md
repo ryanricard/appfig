@@ -7,7 +7,7 @@ Combines [nconf](https://github.com/indexzero/nconf), [recurpolate](https://gith
 
 ## Usage
 
-All the value packed into `appfig` is demonstrated in the example below.  `appfig` is compatible with Node 8+. Enjoy.
+All the value packed into `appfig` is demonstrated in `./example`, which is summarized for your reading below. `appfig` is compatible with Node 8+. Enjoy.
 
 config/default.json
 ```json
