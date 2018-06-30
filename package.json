@@ -9,7 +9,7 @@
     "lint": "eslint ."
   },
   "author": "Ryan Ricard",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.4",
     "nconf": "^0.9.1",
