@@ -1,0 +1,7 @@
+{
+  "port": 3000,
+  "logLevel": "debug",
+  "services": {
+    "users": "http://${host}/users"
+  }
+}

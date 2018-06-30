@@ -1,0 +1,6 @@
+{
+  "extends": "default",
+  "port": 3001,
+  "logLevel": "info",
+  "host": "www.example.com"
+}
