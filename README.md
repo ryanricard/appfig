@@ -3,6 +3,7 @@
 Combines [nconf](https://github.com/indexzero/nconf), [recurpolate](https://github.com/AndersDJohnson/recurpolate), and declarative JSON `"extends"` syntax to create an extremely useful configuration loader. 
 
 [![Build Status](https://travis-ci.org/ryanricard/appfig.svg?branch=master)](https://travis-ci.org/ryanricard/appfig)
+[![Coverage Status](https://coveralls.io/repos/github/ryanricard/appfig/badge.svg?branch=master)](https://coveralls.io/github/ryanricard/appfig?branch=master)
 
 ## Usage
 
