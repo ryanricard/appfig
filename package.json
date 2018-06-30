@@ -10,6 +10,13 @@
   },
   "author": "Ryan Ricard",
   "license": "MIT",
+  "keywords":[
+    "nconf",
+    "recurpolate",
+    "configuration",
+    "config",
+    "JSON"
+  ],
   "dependencies": {
     "lodash": "^4.17.4",
     "nconf": "^0.9.1",
