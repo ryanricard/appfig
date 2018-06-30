@@ -9,4 +9,4 @@ cache: yarn
 script:
   - yarn test
 after_success:
-  - yarn test:coverage:report
+  - yarn test:coverage && yarn test:coverage:report
